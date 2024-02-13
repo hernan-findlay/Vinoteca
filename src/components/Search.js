@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, TextInput, View,Keyboard } from 'react-native'
+import { Pressable, StyleSheet, Text, TextInput, View,Keyboard  } from 'react-native'
 import {AntDesign} from "@expo/vector-icons"
 import colors from '../utils/globals/colors'
 import { useState } from 'react'

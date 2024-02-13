@@ -7,7 +7,7 @@ const ProductByCategory = ({item ,selectedProductId}) => {
   return (
     <Pressable onPress={()=>selectedProductId(item.id)} style={styles.container}>
       <Text style={styles.text}> {item.nombre}</Text>
-      <Image style={styles.image} source={{uri:item.thumbnail}} resizeMode="cover"/>
+      <Image style={styles.image} source={{uri:item.imagen}} resizeMode="cover"/>
     </Pressable>
   )
 }

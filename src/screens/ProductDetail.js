@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, handlerKeyword  } from 'react-native'
 import products from '../utils/data/products.json'
 import { useEffect, useState } from 'react'
 import colors from '../utils/globals/colors'
@@ -36,8 +36,8 @@ const ProductDetail = ({ productId, portrait }) => {
           </Pressable>
         </View>
       </View>
-      <Pressable style={styles.buyNow}>
-            <Text style={styles.buyNowText}>Volver</Text>
+      <Pressable style={styles.volver}>
+            <Text style={styles.volvertext}>Volver</Text>
       </Pressable>
     </View>
   )
@@ -82,13 +82,13 @@ const styles = StyleSheet.create({
   precio:{
     fontSize:30
   },
-  buyNow:{
+  volver:{
     backgroundColor:colors.primary,
     paddingVertical:5,
     paddingHorizontal:10,
     borderRadius:5
   },
-  buyNowText:{
+  volvertext:{
     color:"white"
   }
 })
