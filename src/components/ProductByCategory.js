@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     text:{
         width:"60%",
-        fontSize:16,
+        fontSize:20,
         fontFamily:fonts.ProtestRevolution,
         
     },
