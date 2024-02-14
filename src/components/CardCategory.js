@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
         width:"80%",
         backgroundColor:colors.catego,
         marginHorizontal:"10%",
-        marginVertical:10,
-        padding:20,
+        marginVertical:30,
+        padding:30,
         alignItems:"center",
-        borderRadius:5
+        borderRadius:10
     },
     text:{
         fontSize:16,

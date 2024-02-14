@@ -1,4 +1,4 @@
-import { StyleSheet,View,SafeAreaView ,useWindowDimensions} from 'react-native'
+import { StyleSheet,SafeAreaView ,useWindowDimensions} from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import Home from './src/screens/Home'
 import { useEffect, useState } from 'react'

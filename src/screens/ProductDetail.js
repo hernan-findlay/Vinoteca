@@ -23,7 +23,7 @@ const ProductDetail = ({ productId, portrait }) => {
       <View style={[styles.content, !portrait && { flexDirection: "row", gap: 10, padding: 20 }]} >
         <Image
           style={[styles.image, !portrait && { width: "40%", height: 200 }]}
-          source={{ uri: product?.imagen ? product.imagen : null }}
+          source={{ uri: product.imagen  }}
           resizeMode='cover'
         />
         <View style={[styles.containerText, !portrait && { width: "30%" }]}>
@@ -82,6 +82,15 @@ const styles = StyleSheet.create({
   precio:{
     fontSize:30
   },
+  buyNow:{
+    backgroundColor:colors.primary,
+    paddingVertical:5,
+    paddingHorizontal:10,
+    borderRadius:5
+  },
+  buyNowText:{
+    color:"white"
+  },
   volver:{
     backgroundColor:colors.primary,
     paddingVertical:5,
@@ -89,6 +98,6 @@ const styles = StyleSheet.create({
     borderRadius:5
   },
   volvertext:{
-    color:"white"
+    color:"black"
   }
 })

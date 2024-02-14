@@ -8,7 +8,7 @@ const Home = ({selectedCategoryState}) => {
   return (
     <>
         <Header title="Bienvenidos"/>
-        <Search handlerKeyword={handlerKeyword}/>
+        
         <Categories selectedCategoryState={selectedCategoryState}/>
     </>
   )
