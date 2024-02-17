@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View,FlatList,handlerKeyword } from 'react-native'
-import Header from '../components/Headers'
-import Categories from '../components/Categories'
-import Search from '../components/Search'
 
-const Home = ({selectedCategoryState}) => {
+import Categories from '../components/Categories'
+
+
+const Home = ({navigation}) => {
     
   return (
     <>
-        <Header title="Bienvenidos"/>
         
-        <Categories selectedCategoryState={selectedCategoryState}/>
+        
+        <Categories navigation={navigation} />
     </>
   )
 }

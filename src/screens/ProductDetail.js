@@ -5,7 +5,9 @@ import colors from '../utils/globals/colors'
 import Header from '../components/Headers'
 import fonts from '../utils/globals/fonts'
 
-const ProductDetail = ({ productId, portrait }) => {
+const ProductDetail = ({ route }) => {
+  
+  const {productId} = route.params
   const [product, setProduct] = useState({})
 
   useEffect(() => {
@@ -19,26 +21,24 @@ const ProductDetail = ({ productId, portrait }) => {
   
   return (
     <View style={styles.container}>
-      <Header title="Detalle del vino" />
-      <View style={[styles.content, !portrait && { flexDirection: "row", gap: 10, padding: 20 }]} >
+      
+      <View style={styles.content} >
         <Image
-          style={[styles.image, !portrait && { width: "40%", height: 200 }]}
+          style={styles.image}
           source={{ uri: product.imagen  }}
           resizeMode='cover'
         />
-        <View style={[styles.containerText, !portrait && { width: "30%" }]}>
+        <View style={styles.containerText}>
           <Text style={styles.nombre}>{product.nombre}</Text>
         </View>
-        <View style={[styles.containerPrice, !portrait && { width: "20%", flexDirection: "column" }]}>
+        <View style={styles.containerPrice}>
           <Text style={styles.precio}>$ {product.precio}</Text>
           <Pressable style={styles.buyNow}>
             <Text style={styles.buyNowText}>Comprar ahora</Text>
           </Pressable>
         </View>
       </View>
-      <Pressable style={styles.volver}>
-            <Text style={styles.volvertext}>Volver</Text>
-      </Pressable>
+      
     </View>
   )
 }
@@ -91,13 +91,5 @@ const styles = StyleSheet.create({
   buyNowText:{
     color:"white"
   },
-  volver:{
-    backgroundColor:colors.primary,
-    paddingVertical:5,
-    paddingHorizontal:10,
-    borderRadius:5
-  },
-  volvertext:{
-    color:"black"
-  }
+  
 })

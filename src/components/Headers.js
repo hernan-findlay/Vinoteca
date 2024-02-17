@@ -1,10 +1,15 @@
-import { View , Text ,StyleSheet,Platform ,StatusBar } from "react-native"
+import { View , Text ,StyleSheet,Platform ,StatusBar, Pressable } from "react-native"
 import colors from "../utils/globals/colors"
 import fonts from "../utils/globals/fonts"
+import {AntDesign} from "@expo/vector-icons"
 
-const Header = ({title="Vinoteca"}) => {
+const Header = ({title="Vinoteca",navigation}) => {
 
     return  <View style={styles.container}>
+            {navigation.canGoBack() && 
+                <Pressable style={styles.goBack} onPress={()=>navigation.goBack()}>
+                    <AntDesign name="arrowleft" size={25} color="black"/>
+                </Pressable>}
                 <Text style={styles.text}>{title}</Text>
             </View>
 }
@@ -24,5 +29,11 @@ const styles = StyleSheet.create({
     text:{
         fontSize:30,
         fontFamily:fonts.Sixtyfour
+    },
+    goBack:{
+        position:"absolute",
+        left:10,
+        bottom:28
+
     }
 })

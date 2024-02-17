@@ -7,51 +7,19 @@ import {useFonts} from "expo-font"
 import { fontCollection } from './src/utils/globals/fonts'
 import ProductDetail from './src/screens/ProductDetail'
 import colors from './src/utils/globals/colors'
-
+import MainNavigator from './src/navigation/MainNavigator'
 
 
 
 const App = () => {
   const [fontsLoaded] = useFonts(fontCollection)
-  const [categorySelected,setCategorySelected] = useState("")
-  const [productId,setProductId] = useState(0)
-  const {width,height} = useWindowDimensions()
-  const [portrait,setPortrait] = useState(true)
-
-  useEffect(()=>{
-    if(width > height) setPortrait(false) 
-    else setPortrait(true)
-  },[width,height])
-
   if(!fontsLoaded) return null
 
-  const selectedCategoryState = (categoria) => {
-    setCategorySelected(categoria)
-
-  }
-  const selectedProductId = (id) => {
-    setProductId(id)
-  }
-
+  
   return (
     <>
       <StatusBar backgroundColor={colors.primary} />
-      <SafeAreaView style={styles.container}>
-        {categorySelected ?
-                  productId ?
-                    <ProductDetail 
-                      productId={productId}
-                      portrait={portrait}
-                       />
-                    : 
-                    <ProductsByCategory 
-                      selectedProductId={selectedProductId} 
-                      categorySelected={categorySelected}/>
-                  :
-                  <Home selectedCategoryState={selectedCategoryState}/>
-                  
-        }
-      </SafeAreaView>
+      <MainNavigator/>
     </>
     
   )
@@ -59,8 +27,3 @@ const App = () => {
 
 export default App
 
-const styles = StyleSheet.create({
-  container:{
-    flex:1
-  }
-})
