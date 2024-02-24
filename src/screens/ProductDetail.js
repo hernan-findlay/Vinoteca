@@ -2,46 +2,45 @@ import { StyleSheet, Text, View, Image, Pressable, handlerKeyword  } from 'react
 import products from '../utils/data/products.json'
 import { useEffect, useState } from 'react'
 import colors from '../utils/globals/colors'
-import Header from '../components/Headers'
 import fonts from '../utils/globals/fonts'
+import { useDispatch } from 'react-redux'
+import { addCartItem } from '../features/cart/cartSlice'
 
-const ProductDetail = ({ route }) => {
-  
+
+
+
+const ProductDetail = ({route}) => {
+  const dispatch = useDispatch()
   const {productId} = route.params
-  const [product, setProduct] = useState({})
+  const [product,setProduct] = useState({})
 
-  useEffect(() => {
-    
-    const productFound = products.find(product => product.id === productId);
-    
-    setProduct(productFound);
-  }, [productId]);
+  useEffect(()=>{
+    const productFinded = products.find(product => product.id === productId)
+    setProduct(productFinded)
+  },[productId])
 
-
-  
   return (
     <View style={styles.container}>
-      
-      <View style={styles.content} >
+    <View style={styles.content} >
         <Image
           style={styles.image}
-          source={{ uri: product.imagen  }}
+          source={{uri:product.imagen}}
           resizeMode='cover'
         />
         <View style={styles.containerText}>
           <Text style={styles.nombre}>{product.nombre}</Text>
         </View>
-        <View style={styles.containerPrice}>
+        <View style={styles.containerPrice }>
           <Text style={styles.precio}>$ {product.precio}</Text>
-          <Pressable style={styles.buyNow}>
-            <Text style={styles.buyNowText}>Comprar ahora</Text>
+          <Pressable style={styles.buyNow} onPress={()=>dispatch(addCartItem(product))}>
+            <Text style={styles.buyNowText}>Carrito</Text>
           </Pressable>
         </View>
       </View>
-      
     </View>
   )
 }
+
 
 export default ProductDetail
 
