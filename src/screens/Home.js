@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,FlatList,handlerKeyword } from 'react-native'
+import { StyleSheet, } from 'react-native'
 
 import Categories from '../components/Categories'
 

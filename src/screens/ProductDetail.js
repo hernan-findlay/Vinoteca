@@ -1,23 +1,34 @@
-import { StyleSheet, Text, View, Image, Pressable, handlerKeyword  } from 'react-native'
-import products from '../utils/data/products.json'
-import { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, Image, } from 'react-native'
 import colors from '../utils/globals/colors'
 import fonts from '../utils/globals/fonts'
 import { useDispatch } from 'react-redux'
-import { addCartItem } from '../features/cart/cartSlice'
-
-
+import Spinner from 'react-native-loading-spinner-overlay';
+import { useGetProductQuery } from '../app/services/shop'
+import Counter from '../components/Counter'
+import { useEffect,useState } from 'react'
 
 
 const ProductDetail = ({route}) => {
   const dispatch = useDispatch()
   const {productId} = route.params
-  const [product,setProduct] = useState({})
+  const {data:product} = useGetProductQuery(productId)
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(()=>{
-    const productFinded = products.find(product => product.id === productId)
-    setProduct(productFinded)
-  },[productId])
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  if(isLoading) return <View style={styles.container}>
+                          <Spinner
+                            visible={true}
+                            textContent={'Cargando...'}
+                            textStyle={styles.spinnerTextStyle}
+                            color="white"
+                            
+                          /></View>
 
   return (
     <View style={styles.container}>
@@ -32,9 +43,11 @@ const ProductDetail = ({route}) => {
         </View>
         <View style={styles.containerPrice }>
           <Text style={styles.precio}>$ {product.precio}</Text>
-          <Pressable style={styles.buyNow} onPress={()=>dispatch(addCartItem(product))}>
-            <Text style={styles.buyNowText}>Carrito</Text>
-          </Pressable>
+          <Counter 
+            initialValue={1}
+            product={product} 
+            textButton="Carrito" />
+          
         </View>
       </View>
     </View>
@@ -60,8 +73,9 @@ const styles = StyleSheet.create({
     height:300
   },
   containerText:{
-    gap:25,
-    paddingHorizontal:40,
+    gap:20,
+    alignItems:"center",
+    paddingHorizontal:20,
     paddingVertical:25,
     backgroundColor:colors.text
   },
@@ -75,7 +89,7 @@ const styles = StyleSheet.create({
       
   },
   nombre:{
-    fontSize:20,
+    fontSize:30,
     fontFamily:fonts.ProtestGuerrilla
   },
   precio:{
@@ -90,5 +104,8 @@ const styles = StyleSheet.create({
   buyNowText:{
     color:"white"
   },
+  spinnerTextStyle:{
+    color:"white"
+  }
   
 })

@@ -4,25 +4,25 @@ import colors from '../utils/globals/colors'
 import fonts from '../utils/globals/fonts'
 
 const OrderItem = ({order}) => {
-
-  return (
-    <View style={styles.card}>
-        <View style={styles.textContainer}>
-            <Text style={styles.text}>
-                {new Date(order.createdAt).toLocaleString()}
-            </Text>
-            <Text style={styles.text2}>$ {order.total}</Text>
+    
+    return (
+        <View style={styles.card}>
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>
+                    Fecha de creacion: {order.createdAt}
+                </Text>
+                <Text style={styles.text2}>$ {order.total}</Text>
+            </View>
+            <Feather name="info" size={30} color="black"/>
         </View>
-        <Feather name="search" size={30} color="black"/>
-    </View>
-  )
+      )
 }
 
 export default OrderItem
 
 const styles = StyleSheet.create({
     card:{
-        backgroundColor:colors.lightGray,
+        backgroundColor:colors.tabtext,
         borderWidth:2,
         margin:10,
         padding:10,
@@ -38,12 +38,13 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize:17,
-        fontFamily:fonts.JosefinSansBold
+        fontFamily:fonts.ProtestGuerrilla,
+        color:"white"
     },
     text2:{
         fontSize:19,
         fontFamily:fonts.JosefinSansBold,
-        color:"grey"
+        
     }
 
 })
