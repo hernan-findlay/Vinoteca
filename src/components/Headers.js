@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     logoutIcon:{
         position:"absolute",
         right:10,
-        bottom:15
+        bottom:15,
+        
     }
 })

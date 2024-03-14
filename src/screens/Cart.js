@@ -4,6 +4,7 @@ import fonts from '../utils/globals/fonts'
 import { useSelector,useDispatch} from 'react-redux'
 import { usePostOrderMutation } from '../app/services/orders'
 import { deleteCart } from '../features/cart/cartSlice'
+import ConfirmButton from '../components/ConfirmButton'
 
 const Cart = ({navigation}) => {
 
@@ -30,9 +31,8 @@ const Cart = ({navigation}) => {
         renderItem={({item})=> <CartItem item={item}/>}
         />
         <View style={styles.confirmContainer}>
-            <Pressable onPress={handlerAddOrder}>
-                <Text style={styles.confirmText}>Confirmar</Text>
-            </Pressable>
+            <ConfirmButton title="Confirmar compra" onPress={handlerAddOrder}/>
+                
             <Text style={styles.confirmText}>Total: $ {cart.total}</Text>
         </View>
     </View>
@@ -51,8 +51,9 @@ const styles = StyleSheet.create({
     confirmContainer:{
         flexDirection:"row",
         backgroundColor:"gray",
-        padding:10,
-        justifyContent:"space-between",
+       padding:5,
+        justifyContent:"space-around",
+        alignItems:"center"
     },
     confirmText:{
         fontFamily:fonts.Sixtyfour,
