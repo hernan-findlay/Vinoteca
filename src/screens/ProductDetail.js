@@ -2,17 +2,26 @@ import { StyleSheet, Text, View, Image, } from 'react-native'
 import colors from '../utils/globals/colors'
 import fonts from '../utils/globals/fonts'
 import { useDispatch } from 'react-redux'
-import Spinner from 'react-native-loading-spinner-overlay';
 import { useGetProductQuery } from '../app/services/shop'
 import Counter from '../components/Counter'
 import { useEffect,useState } from 'react'
+import LoadingSpinner from '../components/LoadingSpinner'
+import Error from '../components/Error'
+import EmptyListComponent from '../components/EmptyListComponent'
 
 
 const ProductDetail = ({route}) => {
   const dispatch = useDispatch()
   const {productId} = route.params
-  const {data:product} = useGetProductQuery(productId)
+  const {data:product,isError,isSuccess} = useGetProductQuery(productId)
   const [isLoading, setIsLoading] = useState(true);
+
+
+  
+
+  
+  if(isError) return <Error message="¡Ups! Algo salió mal." textButton="Volver" onRetry={()=>navigation.goBack()}/>
+  if(isSuccess && product === null) return <EmptyListComponent message="El producto no esta disponible"/>
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -20,16 +29,8 @@ const ProductDetail = ({route}) => {
     }, 2000);
     return () => clearTimeout(timeoutId);
   }, []);
-
-  if(isLoading) return <View style={styles.container}>
-                          <Spinner
-                            visible={true}
-                            textContent={'Cargando...'}
-                            textStyle={styles.spinnerTextStyle}
-                            color="white"
-                            
-                          /></View>
-
+  if(isLoading) return <LoadingSpinner/>
+  
   return (
     <View style={styles.container}>
     <View style={styles.content} >

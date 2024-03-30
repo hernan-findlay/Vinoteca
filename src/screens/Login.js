@@ -8,70 +8,90 @@ import { useLoginMutation } from '../app/services/auth'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../features/auth/authSlice'
 import { loginSchema } from '../utils/validation/authSchema'
-
+import { deleteSession, insertSession } from '../utils/db'
+import ModalMessage from '../components/ModalMessage'
 
 const Login = ({navigation}) => {
 
-    const dispatch = useDispatch()
-    const [email,setEmail] = useState("")
-    const [password,setPassword] = useState("")
-    const [errorEmail,setErrorEmail] = useState("")
-    const [errorPassword,setErrorPassword] = useState("")
-    const [triggerLogin] = useLoginMutation()
+  const dispatch = useDispatch()
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+  const [errorEmail,setErrorEmail] = useState("")
+  const [errorPassword,setErrorPassword] = useState("")
+  const [triggerLogin] = useLoginMutation()
+  const [modalVisible,setModalVisible] = useState(false)
 
-    const onSubmit = async () => {
-      try {
+  const handlerCloseModal = () => {
+    setModalVisible(false)
+  }
+  const onSubmit = async () => {
+    try {
 
-        loginSchema.validateSync({email,password})
-        const {data} = await  triggerLogin({email,password})
-        dispatch(setUser({email:data.email,idToken:data.idToken,localId:data.localId}))
-
-      } catch (error) {
-
-        setErrorEmail("")
-        setErrorPassword("")
-
-        switch(error.path){
-          case "email":
-            setErrorEmail(error.message)
-            break
-          case "password":
-            setErrorPassword(error.message)
-            break
-          default:
-            break
-        }
-
+      loginSchema.validateSync({email,password})
+      const {data,error} = await triggerLogin({email,password})
+    
+      if(error){
+       
+        setModalVisible(true)
       }
- 
+      deleteSession()
+      insertSession(data)
+      dispatch(setUser({email:data.email,idToken:data.idToken,localId:data.localId}))
+
+    } catch (error) {
+
+      setErrorEmail("")
+      setErrorPassword("")
+
+      switch(error.path){
+        case "email":
+          setErrorEmail(error.message)
+          break
+        case "password":
+          setErrorPassword(error.message)
+          break
+        default:
+          break
+      }
+
     }
 
-  return (
-        <View style={styles.main}>
-            <View style={styles.container}>
-                <InputForm
-                    label="Email"
-                    value={email}
-                    onChangeText={(t) => setEmail(t)}
-                    isSecure={false}
-                    error={errorEmail}
-                />
-                <InputForm
-                    label="Contraseña"
-                    value={password}
-                    onChangeText={(t) => setPassword(t)}
-                    isSecure={true}
-                    error={errorPassword}
-                />
-                <SubmitButton onPress={onSubmit} title="Iniciar Sesion"/>
-                <Text style={styles.sub}>No tenes una cuenta?</Text>
-                <Pressable onPress={()=> navigation.navigate("Register")} >
-                    <Text style={styles.subLink}>Registro</Text>
-                </Pressable>
-            </View>
-        </View>
+  }
+
+    return (
+      <>
+          <View style={styles.main}>
+              <View style={styles.container}>
+                  <InputForm
+                      label="Email"
+                      value={email}
+                      onChangeText={(t) => setEmail(t)}
+                      isSecure={false}
+                      error={errorEmail}
+                  />
+                  <InputForm
+                      label="Password"
+                      value={password}
+                      onChangeText={(t) => setPassword(t)}
+                      isSecure={true}
+                      error={errorPassword}
+                  />
+                  <SubmitButton onPress={onSubmit} title="Iniciar Sesion"/>
+                      <Text style={styles.sub}>No tenes una cuenta?</Text>
+                  <Pressable onPress={()=> navigation.navigate("Register")} >
+                      <Text style={styles.subLink}>Registro</Text>
+                  </Pressable>
+              </View>
+          </View>
+          <ModalMessage textButton='Volver a intentar' 
+                  text="Email o Contraseña invalido" 
+                  modalVisible={modalVisible} 
+                  onclose={handlerCloseModal}/>
+          
+        </>
   )
 }
+
 
 export default Login
 

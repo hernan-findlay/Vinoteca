@@ -19,12 +19,12 @@ const Header = ({title="Vinoteca",navigation}) => {
     return  <View style={styles.container}>
                 {navigation.canGoBack() && 
                 <Pressable style={styles.goBack} onPress={()=>navigation.goBack()}>
-                    <AntDesign name="arrowleft" size={25} color="black"/>
+                    <AntDesign name="arrowleft" size={20} color="black"/>
                 </Pressable>}
                 <Text style={styles.text}>{title}</Text>
                 {idToken && (
                     <Pressable style={styles.logoutIcon} onPress={onLogout}>
-                     <AntDesign name="logout" size={30} color="black"/>
+                     <AntDesign name="logout" size={20} color="black"/>
                     </Pressable>)}
             </View>
 }
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
         position:"absolute",
         right:10,
         bottom:15,
+        
         
     }
 })

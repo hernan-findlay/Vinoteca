@@ -2,7 +2,7 @@ import { StyleSheet, Text, View,Pressable } from 'react-native'
 import colors from '../utils/globals/colors'
 
 
-const AddButton = ({title,onPress}) => {
+const ConfirmButton = ({title,onPress}) => {
   return (
     <Pressable style={styles.container} onPress={onPress}>
         <Text style={styles.text}>{title}</Text>
@@ -11,7 +11,7 @@ const AddButton = ({title,onPress}) => {
 }
 
 
-export default AddButton
+export default ConfirmButton
 
 
 const styles = StyleSheet.create({

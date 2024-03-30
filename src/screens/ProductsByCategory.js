@@ -1,14 +1,16 @@
 import { FlatList, StyleSheet, Text, View ,handlerKeyword} from 'react-native'
-import Spinner from 'react-native-loading-spinner-overlay';
 import { useEffect, useState } from 'react'
 import ProductByCategory from '../components/ProductByCategory'
 import Search from '../components/Search'
 import { useGetProductsByCategoryQuery } from '../app/services/shop'
+import LoadingSpinner from '../components/LoadingSpinner';
+import Error from '../components/Error';
+import EmptyListComponent from '../components/EmptyListComponent';
 
 const ProductsByCategory = ({navigation,route}) => {
 
   const {categorySelected} = route.params
-  const {data:products} = useGetProductsByCategoryQuery(categorySelected)
+  const {data:products,isError,isSuccess,error} = useGetProductsByCategoryQuery(categorySelected)
   const [productsFiltered,setProductsFiltered] = useState([])
   const [keyword,setKeyword] = useState("")
   const [isLoading, setIsLoading] = useState(true);
@@ -39,13 +41,11 @@ const ProductsByCategory = ({navigation,route}) => {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  if(isLoading) return <View style={styles.container}>
-                          <Spinner
-                            visible={true}
-                            textContent={'Cargando...'}
-                            textStyle={styles.spinnerTextStyle}
-                            color='white'
-                          /></View>
+  if(isLoading) return <LoadingSpinner/>
+  if(isError) return <Error message="¡Ups! Algo salió mal." textButton="Volver" onRetry={()=>navigation.goBack()}/>
+  if(isSuccess && products.length === 0) return <EmptyListComponent message="No hay productos de esta categoria"/>
+
+
   return (
     <>
         
