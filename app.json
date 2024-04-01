@@ -3,7 +3,6 @@
     "name": "Vinoteca",
     "slug": "Vinoteca",
     "version": "1.0.0",
-    
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -21,13 +20,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.firus.Vinoteca"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "065991cc-c2a1-4385-a62a-d33a49370d65"
+      }
+    }
   }
 }
